@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const gltf = await loadGLTF('./Dog_Icon.glb');
       gltf.scene.scale.set(0.05, 0.05, 0.05);
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-      // gltf.scene.rotation.set(0, -1.25, 0);
+      gltf.scene.rotation.set(0, -1.25, 0);
       scene.add(gltf.scene);
     });
 
