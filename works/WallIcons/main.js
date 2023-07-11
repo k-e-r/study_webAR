@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const controller = renderer.xr.getController(0);
     scene.add(controller);
     controller.addEventListener('select', async () => {
+      console.log();
       const gltf = await loadGLTF('./Dog_Icon.glb');
       gltf.scene.scale.set(0.01, 0.01, 0.01);
-      gltf.position.setFromMatrixPosition(reticle.matrix);
+      gltf.scene.position.set(new THREE.Vector3().setFromMatrixPosition(reticle.matrix));
       scene.add(gltf.scene);
       // const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
       // const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
