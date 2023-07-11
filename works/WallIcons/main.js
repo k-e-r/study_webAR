@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
       // gltf.scene.rotation.set(0, -1.25, 0);
       // gltf.scene.rotation.set(0, 0, 0);
-      gltf.scene.rotation.set(0, Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1, 0);
+      gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) + 0.25) * -1, 0);
       scene.add(gltf.scene);
     });
 
