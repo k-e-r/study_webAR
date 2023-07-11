@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const controller = renderer.xr.getController(0);
     scene.add(controller);
     controller.addEventListener('select', async () => {
-      console.log('mesh.position 1:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix));
+      console.log('mesh.position 1:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y);
+      if (Math.abs(Math.floor(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y)) > 1) return;
       const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
       const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
       const mesh = new THREE.Mesh(geometry, material);
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const gltf = await loadGLTF('./Dog_Icon.glb');
       gltf.scene.scale.set(0.05, 0.05, 0.05);
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-      gltf.scene.rotation.set(0, -1.25, 0);
+      // gltf.scene.rotation.set(0, -1.25, 0);
+      gltf.scene.rotation.set(0, 0, 0);
       scene.add(gltf.scene);
     });
 
@@ -56,16 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const hitTestResults = frame.getHitTestResults(hitTestSource);
 
         if (hitTestResults.length) {
-          const positionY = new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y;
-          console.log('mesh.position 0:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y);
           const hit = hitTestResults[0];
           const referenceSpace = renderer.xr.getReferenceSpace(); // ARButton requested 'local' reference space
           const hitPose = hit.getPose(referenceSpace);
 
-          if (Math.floor(positionY) < 1) {
-            reticle.visible = true;
-            reticle.matrix.fromArray(hitPose.transform.matrix);
-          } else reticle.visible = false;
+          reticle.visible = true;
+          reticle.matrix.fromArray(hitPose.transform.matrix);
         } else {
           reticle.visible = false;
         }
