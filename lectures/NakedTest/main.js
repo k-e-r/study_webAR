@@ -26,12 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // action.play();
 
     const clock = new THREE.Clock();
-    console.log(gltf.scene.rotation.z);
+    gltf.scene.rotation.set(90, gltf.scene.rotation.y, 0);
 
     await mindarThree.start();
     renderer.setAnimationLoop(() => {
       const delta = clock.getDelta();
-      gltf.scene.rotation.set(0, gltf.scene.rotation.y+delta, 90);
+      // gltf.scene.rotation.set(gltf.scene.rotation.x+delta, gltf.scene.rotation.y, 0);
+      gltf.scene.rotation.set(90, gltf.scene.rotation.y+delta, 0);
       mixer.update(delta);
       renderer.render(scene, camera);
     });
