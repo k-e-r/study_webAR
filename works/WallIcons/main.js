@@ -30,14 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(controller);
     controller.addEventListener('select', async () => {
       const gltf = await loadGLTF('./Dog_Icon.glb');
-      gltf.scene.scale.set(0.05, 0.05, 0.05);
+      gltf.scene.scale.set(0.01, 0.01, 0.01);
+      gltf.position.setFromMatrixPosition(reticle.matrix);
       scene.add(gltf.scene);
-      const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
-      const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.setFromMatrixPosition(reticle.matrix);
-      mesh.scale.y = Math.random() * 2 + 1;
-      scene.add(mesh);
+      // const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
+      // const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
+      // const mesh = new THREE.Mesh(geometry, material);
+      // mesh.position.setFromMatrixPosition(reticle.matrix);
+      // mesh.scale.y = Math.random() * 2 + 1;
+      // scene.add(mesh);
     });
 
     renderer.xr.addEventListener("sessionstart", async (e) => {
