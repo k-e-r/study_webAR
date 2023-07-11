@@ -25,11 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // action.play();
 
     const clock = new THREE.Clock();
+    console.log(gltf.scene.rotation.z);
 
     await mindarThree.start();
     renderer.setAnimationLoop(() => {
       const delta = clock.getDelta();
-      gltf.scene.rotation.set(0, gltf.scene.rotation.y+delta, 0);
+      gltf.scene.rotation.set(180, gltf.scene.rotation.y+delta, 0);
       mixer.update(delta);
       renderer.render(scene, camera);
     });
