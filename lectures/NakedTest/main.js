@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // const gltf = await loadGLTF('../../assets/models/musicband-raccoon/scene.gltf');
     const gltf = await loadGLTF('./Dog_Icon.glb');
     gltf.scene.scale.set(0.1, 0.1, 0.1);
-    gltf.scene.position.set(0, -0.4, 0);
+    // gltf.scene.position.set(0, -0.4, 0);
+    gltf.scene.position.set(0, 0, 0);
 
     const anchor = mindarThree.addAnchor(0);
     anchor.group.add(gltf.scene);
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     await mindarThree.start();
     renderer.setAnimationLoop(() => {
       const delta = clock.getDelta();
-      gltf.scene.rotation.set(180, gltf.scene.rotation.y+delta, 0);
+      gltf.scene.rotation.set(0, gltf.scene.rotation.y+delta, 90);
       mixer.update(delta);
       renderer.render(scene, camera);
     });
