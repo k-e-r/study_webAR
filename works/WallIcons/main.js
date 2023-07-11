@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
       gltf.scene.scale.set(0.05, 0.05, 0.05);
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
       // gltf.scene.rotation.set(0, -1.25, 0);
-      gltf.scene.rotation.set(0, 0, 0);
+      // gltf.scene.rotation.set(0, 0, 0);
+      gltf.scene.rotation.set(0, Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1, 0);
       scene.add(gltf.scene);
     });
 
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const hitTestResults = frame.getHitTestResults(hitTestSource);
 
         if (hitTestResults.length) {
+          console.log('mesh.position 0:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x);
           const hit = hitTestResults[0];
           const referenceSpace = renderer.xr.getReferenceSpace(); // ARButton requested 'local' reference space
           const hitPose = hit.getPose(referenceSpace);
