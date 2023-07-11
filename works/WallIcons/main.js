@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
     scene.add(light);
 
-    const reticleGeometry = new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateX(- Math.PI / 2);
+    const reticleGeometry = new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateY(- Math.PI / 2);
     const reticleMaterial = new THREE.MeshBasicMaterial();
     const reticle = new THREE.Mesh(reticleGeometry, reticleMaterial);
     reticle.matrixAutoUpdate = false;
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const gltf = await loadGLTF('./Dog_Icon.glb');
       gltf.scene.scale.set(0.1, 0.1, 0.1);
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
+      gltf.scene.rotation.set(0, -1.25, 0);
       scene.add(gltf.scene);
     });
 
