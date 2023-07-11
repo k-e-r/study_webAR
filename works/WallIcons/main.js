@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
     scene.add(light);
 
-    const reticleGeometry = new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateY(0);
+    const reticleGeometry = new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateY(- Math.PI / 2);
     const reticleMaterial = new THREE.MeshBasicMaterial();
     const reticle = new THREE.Mesh(reticleGeometry, reticleMaterial);
     reticle.matrixAutoUpdate = false;
