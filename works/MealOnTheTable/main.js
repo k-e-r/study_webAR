@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // ikuraSushi.scene.rotation.set(1.25, 0, 0);
       gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
 
+      scene.add(burger.scene);
       if (count === 0) scene.add(burger.scene);
       if (count === 1) scene.add(ebiSushi.scene);
       if (count === 2) scene.add(ikuraSushi.scene);
