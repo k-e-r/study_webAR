@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
     scene.add(light);
 
-    const reticleGeometry = new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateX(- Math.PI / 2);
+    const reticleGeometry = new THREE.RingGeometry( 0.6, 0.8, 64 ).rotateX(- Math.PI / 2);
     const reticleMaterial = new THREE.MeshBasicMaterial();
     const reticle = new THREE.Mesh(reticleGeometry, reticleMaterial);
     reticle.matrixAutoUpdate = false;
@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const controller = renderer.xr.getController(0);
     scene.add(controller);
     controller.addEventListener('select', async () => {
-      console.log('mesh.position 1:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y);
+      if (count > 0) return;
+      // console.log('mesh.position 1:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y);
       // if (Math.abs(Math.floor(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y)) > 1) return;
       const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
       const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
@@ -95,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // const gltf = await loadGLTF('./Dog_Icon.glb');
       const gltf = await loadGLTF('./Food-All.glb');
       gltf.scene.scale.set(0.08, 0.08, 0.08);
-      gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z-0.1);
+      gltf.scene.position.set(mesh.position.x-0.1, mesh.position.y, mesh.position.z+0.6);
       // gltf.scene.rotation.set(0, -1.25, 0);
-      // gltf.scene.rotation.set(0, 0, 0);
-      gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1 + 0.5) * -1, 0);
+      gltf.scene.rotation.set(0, Math.PI, 0);
+      // gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1 + 0.5) * -1, 0);
       scene.add(gltf.scene);
 
       // const burger = await loadGLTF('./Burger-Only.glb');
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
 
       // scene.add(burger.scene);
+      count++;
     });
 
     renderer.xr.addEventListener("sessionstart", async (e) => {
