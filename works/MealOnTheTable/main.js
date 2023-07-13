@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // const gltf = await loadGLTF('./Dog_Icon.glb');
       const gltf = await loadGLTF('./Food-All.glb');
       gltf.scene.scale.set(0.06, 0.06, 0.06);
-      gltf.scene.position.set(mesh.position.x-0.1, mesh.position.y, mesh.position.z+0.6);
+      gltf.scene.position.set(mesh.position.x, mesh.position.y-0.2, mesh.position.z+0.6);
       // gltf.scene.rotation.set(0, -1.25, 0);
       gltf.scene.rotation.set(0, Math.PI, 0);
       // gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1 + 0.5) * -1, 0);
