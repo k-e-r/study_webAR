@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(controller);
     controller.addEventListener('select', async () => {
       console.log('mesh.position 1:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y);
-      if (Math.abs(Math.floor(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y)) > 1) return;
+      // if (Math.abs(Math.floor(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).y)) > 1) return;
       const geometry = new THREE.BoxGeometry(0.06, 0.06, 0.06);
       const material = new THREE.MeshBasicMaterial({ color: 0xffffff * Math.random()});
       const mesh = new THREE.Mesh(geometry, material);
@@ -93,31 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // scene.add(mesh);
 
       // const gltf = await loadGLTF('./Dog_Icon.glb');
-      // gltf.scene.scale.set(0.05, 0.05, 0.05);
+      const gltf = await loadGLTF('./Food-All.glb');
+      gltf.scene.scale.set(0.1, 0.1, 0.1);
+      gltf.scene.position.set(mesh.position.x, mesh.position.y+1, mesh.position.z);
+      // gltf.scene.rotation.set(0, -1.25, 0);
+      // gltf.scene.rotation.set(0, 0, 0);
+      gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1 + 0.5) * -1, 0);
+      scene.add(gltf.scene);
+
+      // const burger = await loadGLTF('./Burger-Only.glb');
+      // burger.scene.scale.set(1, 1, 1);
+      // // burger.scene.rotation.set(1.25, 0, 0);
       // gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-      // // gltf.scene.rotation.set(0, -1.25, 0);
-      // // gltf.scene.rotation.set(0, 0, 0);
-      // gltf.scene.rotation.set(0, (Math.abs(new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x) * -1 + 0.5) * -1, 0);
-      // scene.add(gltf.scene);
 
-      const burger = await loadGLTF('./Burger-Only.glb');
-      burger.scene.scale.set(1, 1, 1);
-      // burger.scene.rotation.set(1.25, 0, 0);
-      gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-      const ebiSushi = await loadGLTF('./Ebi-Sushi.glb');
-      ebiSushi.scene.scale.set(1, 1, 1);
-      // ebiSushi.scene.rotation.set(1.25, 0, 0);
-      gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-      const ikuraSushi = await loadGLTF('./Ikura-Sushi.glb');
-      ikuraSushi.scene.scale.set(1, 1, 1);
-      // ikuraSushi.scene.rotation.set(1.25, 0, 0);
-      gltf.scene.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-
-      scene.add(burger.scene);
-      if (count === 0) scene.add(burger.scene);
-      if (count === 1) scene.add(ebiSushi.scene);
-      if (count === 2) scene.add(ikuraSushi.scene);
-      count++;
+      // scene.add(burger.scene);
     });
 
     renderer.xr.addEventListener("sessionstart", async (e) => {
