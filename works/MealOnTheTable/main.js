@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // const gltf = await loadGLTF('./Dog_Icon.glb');
       const gltf = await loadGLTF('./Food-All.glb');
-      gltf.scene.scale.set(0.07, 0.07, 0.07);
+      gltf.scene.scale.set(0.06, 0.06, 0.06);
       gltf.scene.position.set(mesh.position.x-0.1, mesh.position.y, mesh.position.z+0.6);
       // gltf.scene.rotation.set(0, -1.25, 0);
       gltf.scene.rotation.set(0, Math.PI, 0);
@@ -122,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const hitTestResults = frame.getHitTestResults(hitTestSource);
 
         if (hitTestResults.length) {
-          console.log('mesh.position 0:', new THREE.Vector3().setFromMatrixPosition(reticle.matrix).x);
           const hit = hitTestResults[0];
           const referenceSpace = renderer.xr.getReferenceSpace(); // ARButton requested 'local' reference space
           const hitPose = hit.getPose(referenceSpace);
@@ -132,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           reticle.visible = false;
         }
+
+        if (count > 0) reticle.visible = false;
 
         renderer.render(scene, camera);
       });
