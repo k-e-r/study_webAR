@@ -43,20 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(light);
     scene.add(light2);
 
-    const occluder = await loadGLTF('../../assets/models/sparkar-occluder/headOccluder.glb');
-    occluder.scene.scale.set(0.065, 0.065, 0.065);
-    occluder.scene.position.set(0, -0.3, 0.15);
-    occluder.scene.traverse((o) => {
-      if (o.isMesh) {
-        const occluderMaterial = new THREE.MeshPhongMaterial({colorWrite: false});
-        o.material = occluderMaterial;
-      }
-    });
-    occluder.scene.renderOrder = 0;
-
-    const occluderAnchor = mindarThree.addAnchor(168);
-    occluderAnchor.group.add(occluder.scene);
-
     const censored = await loadGLTF('./20230713_NAKED_AR1_C-02.glb');
     censored.scene.scale.set(1.8, 1.8, 1.8);
     censored.scene.rotateX(Math.PI / 2);
@@ -131,44 +117,44 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // const previewImage = document.querySelector("#preview-image");
-    // const previewClose = document.querySelector("#preview-close");
-    // const preview = document.querySelector("#preview");
-    // const previewShare = document.querySelector("#preview-share");
+    const previewImage = document.querySelector("#preview-image");
+    const previewClose = document.querySelector("#preview-close");
+    const preview = document.querySelector("#preview");
+    const previewShare = document.querySelector("#preview-share");
 
-    // document.querySelector("#capture").addEventListener("click", () => {
-    //   const data = capture(mindarThree);
-    //   preview.style.visibility = "visible";
-    //   previewImage.src = data;
-    // });
+    document.querySelector("#capture").addEventListener("click", () => {
+      const data = capture(mindarThree);
+      preview.style.visibility = "visible";
+      previewImage.src = data;
+    });
 
-    // previewClose.addEventListener("click", () => {
-    //   preview.style.visibility = "hidden";
-    // });
+    previewClose.addEventListener("click", () => {
+      preview.style.visibility = "hidden";
+    });
 
-    // previewShare.addEventListener("click", () => {
-    //   const canvas = document.createElement('canvas');
-    //   canvas.width = previewImage.width;
-    //   canvas.height = previewImage.height;
-    //   const context = canvas.getContext('2d');
-    //   context.drawImage(previewImage, 0, 0, canvas.width, canvas.height);
+    previewShare.addEventListener("click", () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = previewImage.width;
+      canvas.height = previewImage.height;
+      const context = canvas.getContext('2d');
+      context.drawImage(previewImage, 0, 0, canvas.width, canvas.height);
 
-    //   canvas.toBlob((blob) => {
-    //     const file = new File([blob], "photo.png", {type: "image/png"});
-    //     const files = [file];
-    //     if (navigator.canShare && navigator.canShare({files})) {
-    //       navigator.share({
-    //         files: files,
-    //         title: 'AR Photo',
-    //       })
-    //     } else {
-    //       const link = document.createElement('a');
-    //       link.download = 'photo.png';
-    //       link.href = previewImage.src;
-    //       link.click();
-    //     }
-    //   });
-    // });
+      canvas.toBlob((blob) => {
+        const file = new File([blob], "photo.png", {type: "image/png"});
+        const files = [file];
+        if (navigator.canShare && navigator.canShare({files})) {
+          navigator.share({
+            files: files,
+            title: 'AR Photo',
+          })
+        } else {
+          const link = document.createElement('a');
+          link.download = 'photo.png';
+          link.href = previewImage.src;
+          link.click();
+        }
+      });
+    });
 
     const mixer = new THREE.AnimationMixer(text1.scene);
     const clock = new THREE.Clock();
