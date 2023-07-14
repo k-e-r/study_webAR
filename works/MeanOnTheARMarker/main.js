@@ -9,17 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const {renderer, scene, camera} = mindarThree;
 
-    const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
-    scene.add(light);
+    // const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+    const AmbientLight = new THREE.AmbientLight(0x404040);
+    scene.add(AmbientLight);
+    const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    scene.add( directionalLight );
 
     // const gltf = await loadGLTF('../../assets/models/musicband-raccoon/scene.gltf');
     const gltf = await loadGLTF('./Food-All.glb');
+    console.log(gltf.scene); // returns true
+    console.log('object3d', new THREE.Object3D());
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     // gltf.scene.position.set(0, -0.4, 0);
-    gltf.scene.position.set(0, 0, 0);
+    gltf.scene.rotateX(Math.PI / 2);
+    gltf.scene.position.set(0, 1, 0);
 
     const anchor = mindarThree.addAnchor(0);
     anchor.group.add(gltf.scene);
+    // directionalLight.target = gltf.scene;
+    // scene.add( directionalLight.target );
 
     // const mixer = new THREE.AnimationMixer(gltf.scene);
     // const action = mixer.clipAction(gltf.animations[0]);
