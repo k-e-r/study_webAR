@@ -1,13 +1,37 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="../../libs/three.js-r132/build/three.module.js"></script> -->
-    <script src="./main.js" type="module"></script>
-    <style>
-      html, body {position: relative; margin: 0; width: 100%; height: 100%; overflow: hidden}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   </head>
+	<script>
+		AFRAME.registerComponent('shadow-material', {
+			init: function(){
+				console.log('shadow-material');
+				let el = this.el;
+				let self = this;
+				let mesh = el.getObject3D('mesh');
+				console.log(mesh);
+				if (!mesh){return;}
+				mesh.material = new THREE.ShadowMaterial();
+				mesh.material.opacity = 0.3;
+			}
+		});
+	</script>
   <body>
-    <canvas class="webgl"></canvas>
+    <a-scene mindar-image="imageTargetSrc: 0fool.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="avatarModel" src="Food-All.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="-90 0 180" position="0 -0.5 0" scale="0.1 0.1 0.1" src="#avatarModel" shadow="cast:true; receive:true;" />
+        <a-entity light="type: ambient; color: #FFF; intensity: 0.6"></a-entity>
+        <a-plane position="0 0 -0.1" rotation="-90 0 0" opacity="0" width="100" height="100" shadow="receive:true;" shadow-material></a-plane>
+        <a-entity light="type: point; intensity: 0.55; distance: 10000; castShadow:true;" position="0 20 10"></a-entity>
+      </a-entity>
+    </a-scene>
   </body>
 </html>
