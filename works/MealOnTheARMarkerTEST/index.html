@@ -19,7 +19,7 @@
 		});
 	</script>
   <body>
-    <a-scene mindar-image="imageTargetSrc: naked.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene mindar-image="imageTargetSrc: naked_horizontal.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="avatarModel" src="Food-All.glb"></a-asset-item>
       </a-assets>
@@ -27,7 +27,7 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="-90 0 180" position="0 -0.5 0" scale="0.1 0.1 0.1" src="#avatarModel" shadow="cast:true; receive:true;" />
+        <a-gltf-model rotation="-90 0 180" position="0 -0.5 0" scale="0.05 0.05 0.05" src="#avatarModel" shadow="cast:true; receive:true;" />
         <a-entity light="type: ambient; color: #FFF; intensity: 0.6"></a-entity>
         <a-plane position="0 0 -0.1" rotation="-90 0 0" opacity="0" width="100" height="100" shadow="receive:true;" shadow-material></a-plane>
         <a-entity light="type: point; intensity: 0.55; distance: 10000; castShadow:true;" position="0 20 10"></a-entity>
